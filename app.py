@@ -6,6 +6,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     message = os.getenv('MESSAGE', 'This is default message')
-    return render_template('index.html', message=message)
+    secretcode = os.getenv('SECRETCODE', 'No secet code')
+    return render_template('index.html', message=message, secretcode=secretcode)
 if __name__ == '__main__':
     app.run(debug=True)
