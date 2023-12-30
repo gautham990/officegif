@@ -16,7 +16,7 @@ def fetch_random_office_gif():
     try:
         response = requests.get(endpoint)
         if response.status_code == 200:
-            gif_url = response.json()['data']['image_original_url']
+            gif_url = response.json()['data']['images']['original']['url']
             return gif_url
     except Exception as e:
         print(f"Error fetching GIF: {e}")
