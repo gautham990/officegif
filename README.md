@@ -1,2 +1,2 @@
 # officegif
-Simple website displaying The Office gif in the background.
+Simple website displaying The Office GIF in the background.
