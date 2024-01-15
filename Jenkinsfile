@@ -1,6 +1,9 @@
 pipeline {
 
     agent any
+    parameters {
+        string(name: 'RELEASE', description: 'Release version in major.minor.fix format')
+    }
 
     options {
         timeout(10)     //Restrict the job to 10mins
@@ -9,7 +12,7 @@ pipeline {
     stages {
         stage("Code Test") {
             steps {
-                sh "Some test..."
+                sh "echo Some test..."
             }    
         } 
         stage("Docker Build") {
