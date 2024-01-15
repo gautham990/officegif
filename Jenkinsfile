@@ -3,11 +3,9 @@ pipeline {
     agent any
     parameters {
         string(name: 'RELEASE', description: 'Release version in major.minor.fix format')
-    }
-
+        }
     options {
-        timeout(10)     //Restrict the job to 10mins
-        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '3', numToKeepStr: '3') //Discard old builds
+        timeout(10)   
         }
     stages {
         stage("Code Test") {
@@ -23,15 +21,17 @@ pipeline {
         }  
         stage("Docker Push") {
             steps {
-                withDockerRegistry([ credentialsId: "gautham990-dockerhub", url: "" ]) {
+                withDockerRegistry([ credentialsId: "gautha990-dockerhub", url: "" ]) {
                     sh  "docker push gautham990/officegif:$RELEASE"
                 }
             }
         }
-        stage("Run Docker") {
+        stage("Run Docker and cleanup") {
             steps {
-                sh "docker run -d -p 5000:80 gautham990/officegif:$RELEASE"
-                }
+                sh "docker run --name officegif -d -p 5000:5000 gautham990/officegif:$RELEASE"
+                sh "sleep 120"
+                sh "docker container rm officegif --force"
+            }
         }
     }
 }     
