@@ -18,7 +18,7 @@ pipeline {
         stage("Docker Build") {
             steps {
                 sh "docker build -t officegif:latest ."
-                sh "docker tag nginxtest gautham990/officegif:$RELEASE"
+                sh "docker tag officegif gautham990/officegif:$RELEASE"
             }
         }  
         stage("Docker Push") {
